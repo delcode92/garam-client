@@ -118,8 +118,8 @@ const handleLogout = () => {
       <nav className={styles.navbar}>
         <a href="/kelompok_tani" className={styles.tab}>Tambah Kelompok</a>
         <a href="/peserta_kelompok_tani" className={styles.tab}>Tambah Petambak</a>
-        <a href="/" className={styles.tab}>Tambah Rekap</a>
-        <a href="/" className={styles.tab}>Tabel Rekap</a>
+        <a href="/input_rekap" className={styles.tab}>Tambah Rekap</a>
+        <a href="/rekap_table" className={styles.tab}>Tabel Rekap</a>
         <a href="/kelompok_tani_table" className={styles.tab}>Tabel Petambak</a>
         <a href="/" className={styles.tab} onClick={handleLogout}>Logout</a>
       </nav>

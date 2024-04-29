@@ -41,8 +41,6 @@ const Table: React.FC = () => {
     item.ket.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // console.log(dataTable);
-
   // LOGOUT
   const handleLogout = () => {
     // Clear login session
@@ -61,8 +59,8 @@ const Table: React.FC = () => {
       <nav className={styles.navbar}>
         <a href="/kelompok_tani" className={styles.tab}>Tambah Kelompok</a>
         <a href="/peserta_kelompok_tani" className={styles.tab}>Tambah Petambak</a>
-        <a href="/" className={styles.tab}>Tambah Rekap</a>
-        <a href="/" className={styles.tab}>Tabel Rekap</a>
+        <a href="/input_rekap" className={styles.tab}>Tambah Rekap</a>
+        <a href="/rekap_table" className={styles.tab}>Tabel Rekap</a>
         <a href="/kelompok_tani_table" className={styles.tab}>Tabel Petambak</a>
         <a href="/" className={styles.tab} onClick={handleLogout}>Logout</a>
       </nav>
@@ -70,17 +68,17 @@ const Table: React.FC = () => {
       <h1 className={styles.heading}>Table Petambak</h1>
       <div className={styles.mgr_bottom}>
 
-      <div className={styles.searchInline}>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={styles.searchInput}
-        />
-        <a href="/peserta_kelompok_tani" target="_blank" rel="noopener noreferrer" className={styles.add_button}>tambah petani</a>
+        <div className={styles.searchInline}>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+          <a href="/peserta_kelompok_tani" target="_blank" rel="noopener noreferrer" className={styles.add_button}>tambah petani</a>
 
-      </div>
+        </div>
       </div>
 
       <table className={styles.table}>
