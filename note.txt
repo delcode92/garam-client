@@ -1,0 +1,6 @@
+1. buat nextJS searching
+2. fitur input , update, delete
+
+=============== AI COMMAND ==================
+
+// create nextJS   

@@ -8,6 +8,7 @@ const Table: React.FC = () => {
   
   const [kecamatan, setKecamatan] = useState('');
   const [desa, setDesa] = useState('');
+  const [rowID, setRowId] = useState('');
   const [luasLahan, setLuasLahan] = useState('');
   const [jumKelompok, setJumKelompok] = useState('');
   const [jumPetambak, setJumPetambak] = useState('');
@@ -116,26 +117,58 @@ const Table: React.FC = () => {
     .then(villages => setDesaAPI(villages));
   
   };
+  
+  const handleOpenModal =  async (id: string) => {
+    
+    // GET DATA BASED FROM ID
+    fetch("http://localhost:8080/get_edit_rekap_datatable/"+id)
+    .then(
+      response => response.json()
+      )
+    .then(
+        data => {
+          // FILL EDIT FORM
+          setRowId(id);
+          setLuasLahan(data[0].luas_lahan);
+          setJumKelompok(data[0].jum_kelompok);
+          setJumPetambak(data[0].jum_petambak);
+          setJumNonPetambak(data[0].jum_non_petambak);
+        }
+        )
 
+    // OPEN EDIT FORM
+    setIsModalOpen(true);
+  };
+
+  // SUBMIT UPDATE REKAP
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)  =>  {
     e.preventDefault();
-    
+
     // UPDATE DATA REKAP
-    const response = await fetch('http://localhost:8080/update_rekap', {
+    const response = await fetch('http://localhost:8080/update_rekap_datatable', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ kecamatan, desa, luasLahan, jumKelompok, jumPetambak, jumNonPetambak }),
+      body: JSON.stringify({ rowID, kecamatan, desa, luasLahan, jumKelompok, jumPetambak, jumNonPetambak }),
     });
     
     alert("Berhasil Diupdate !");
     setIsModalOpen(false);
+
+    // LOAD REKAP DATATABLE
+    fetch("http://localhost:8080/get_rekap_datatable")
+    .then(
+      response => response.json()
+      )
+    .then(
+        data => {
+          setDataTable(data);
+        }
+       )
+    
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -195,7 +228,7 @@ const Table: React.FC = () => {
               <td>{row.jum_petambak}</td>
               <td>{row.jum_non_petambak}</td>
               <td>
-                <a  href="#" rel="noopener noreferrer" onClick={handleOpenModal}>edit</a>
+                <a  href="#" rel="noopener noreferrer" onClick={() => handleOpenModal(row.id)}>edit</a>
                 <span> | </span>
                 <a key={row.id} href="#" rel="noopener noreferrer" data-id={row.id} onClick={() => handleDelete(row.id)}> delete</a>
               </td>
